@@ -1,8 +1,7 @@
 class Solution:
-    def climbStairs(self, n: int) -> int:
-        dp = {1: 1, 2: 2}
-
-        for i in range(3, n+1):
-            dp[i] = dp[i - 1] + dp[i - 2]
-        
-        return dp[n]
+    def climbStairs(self, n: int, memo: dict = {}) -> int:
+        if n not in memo:
+            if n < 3:
+                return n
+            memo[n] = self.climbStairs(n - 1) + self.climbStairs(n - 2)
+        return memo[n]
