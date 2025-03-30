@@ -1,5 +1,5 @@
 """
-
+O(N) time, O(N) space
 """
 
 class Solution:
