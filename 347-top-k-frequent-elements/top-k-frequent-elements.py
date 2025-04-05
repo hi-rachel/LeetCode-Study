@@ -6,10 +6,7 @@ class Solution:
         result = []
 
         for num in nums:
-            if num in numdict:
-                numdict[num] += 1
-            else:
-                numdict[num] = 1
+            numdict[num] += 1
 
         sort_dict = dict(sorted(numdict.items(), key=lambda item: item[1], reverse=True))
 
