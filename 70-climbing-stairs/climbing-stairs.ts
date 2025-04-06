@@ -3,7 +3,7 @@
 // 오를 수 있는 방법의 수 반환해라
 
 function climbStairs(n: number): number {
-    let ways = []
+    let ways: number[] = []
     ways[0] = 1
     ways[1] = 2
 
