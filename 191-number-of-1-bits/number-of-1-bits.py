@@ -6,6 +6,5 @@ class Solution:
             if (n % 2) == 1:
                 cnt += 1
             n //= 2
-            print(n)
 
         return cnt
