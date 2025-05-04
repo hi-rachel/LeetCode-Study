@@ -1,10 +1,17 @@
 function isValid(s: string): boolean {
-    let prevLength = -1;
-
-    while (s.length !== prevLength) {
-        prevLength = s.length;
-        s = s.replace("()", "").replace("[]", "").replace("{}", "");
+    const stack: string[] = [];
+    const parentheseMap: Record<string, string> = {
+        ")": "(",
+        "]": "[",
+        "}": "{",
     }
 
-    return s.length === 0;
+    for (const char of s) {
+        if (["(", "[", "{"].includes(char)) {
+            stack.push(char);
+        } else {
+            if (stack.pop() !== parentheseMap[char]) return false;
+        }
+    }
+    return stack.length === 0;
 }
