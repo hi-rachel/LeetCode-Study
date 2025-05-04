@@ -1,20 +1,14 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        match = {
-            '(' : ')',
-            '{' : '}',
-            '[' : ']'
-        }
+        parentheseMap = {")" : "(", "]": "[", "}": "{"}
         stack = []
+        open_parenthese = "([{"
 
         for char in s:
-            if char in '[{(':
+            if char in open_parenthese:
                 stack.append(char)
             else:
-                if not stack:
+                if (not stack or stack.pop() != parentheseMap[char]):
                     return False
-                top = stack.pop()
-                if match[top] != char:
-                    return False
-        
-        return not stack
+            
+        return len(stack) == 0
