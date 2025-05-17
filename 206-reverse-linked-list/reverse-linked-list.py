@@ -3,12 +3,6 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-#
-#
-# 1. Stack 활용 (LIFO)
-# - LinkedList의 모든 원소를 Stack에 넣고 꺼냄
-#
-#
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
