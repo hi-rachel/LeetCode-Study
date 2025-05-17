@@ -4,13 +4,11 @@ string s가 주어졌을 때, s에서 나올 수 있는 palindrome의 조건을 
 
 1. 완전 탐색
 - 나올 수 있는 모든 경우의 수 substring을 만들어 palindrome의 조건을 만족하는지 계산
-- 중복이 없는 조합 개수 구하기 => set() 이용
 """
 
 class Solution:
     def countSubstrings(self, s: str) -> int:
         cnt = 0
-        substrings = set()
         n = len(s)
 
         def isPalindrome(test):
@@ -20,7 +18,5 @@ class Solution:
             for j in range(i+1, n+1):
                 if isPalindrome(s[i:j]):
                     cnt += 1
-                substrings.add(s[i:j])
 
         return cnt
-
