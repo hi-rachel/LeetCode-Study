@@ -15,23 +15,44 @@ SC: O(N)
 
 TC: O(N^2)
 SC: O(1)
+
+3. 최적화 - DP
+    1. 길이 1인 문자열은 항상 팰린드롬
+        dp[i][i] = True
+    2. 길이 2인 문자열은 두 문자가 같으면 팰린드롬
+        s[i] == s[i+1] -> dp[i][i+1] = True
+    3. 길이 3 이상인 문자열은 끝 두 문자열이 같고 안에 문자열도 모두 같아야 팰린드롬
+        s[i] == s[j] and dp[i+1][j-1] == True -> dp[i][j] = True
+        (dp[i+1][j-1] == True시, s[i+1...j-1] 구간의 문자열이 이미 팰린드롬이라는 뜻)
+
+TC: O(N^2)
+SC: O(N^2)
 """
 
 class Solution:
     def countSubstrings(self, s: str) -> int:
         cnt = 0
         n = len(s)
+        dp = [[False] * n for _ in range(n)]
 
-        def expandAroundCenter(left: int, right: int):
-            nonlocal cnt  # 중첩 함수에서 바깥 함수의 지역 변수에 접근할 때 사용
-            while left >= 0 and right < n and s[left] == s[right]:  # 범위를 벗어나지 않고, 팰린드롬 조건을 충족하면
-                # 확장
+        # 길이 1 => 항상 팰린드롬
+        for i in range(n):
+            dp[i][i] = True
+            cnt += 1
+        
+        # 길이 2 => 같은 문자면 팰린드롬
+        for i in range(n-1):
+            if s[i] == s[i+1]:  # 서로 같은 문자면
+                dp[i][i+1] = True  # 팰린드롬
                 cnt += 1
-                left -= 1
-                right += 1
 
-        for center in range(n):
-            expandAroundCenter(center, center)  # 홀수 길이
-            expandAroundCenter(center, center + 1)  # 짝수 길이
+        # 길이 3 이상
+        for length in range(3, n+1):  # length는 부분 문자열의 길이
+            for i in range(n - length + 1):
+                j = i + length - 1  # 끝 인덱스
+                if s[i] == s[j] and dp[i+1][j-1]:
+                    dp[i][j] = True
+                    cnt += 1
 
         return cnt
+
