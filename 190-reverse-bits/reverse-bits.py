@@ -10,9 +10,4 @@ SC: O(1)
 
 class Solution:
     def reverseBits(self, n: int) -> int:
-        output = 0
-        for _ in range(32):
-            output <<= 1  # 왼쪽 쉬프트
-            output |= (n & 1)  # 논리 연산자 사용 (제일 마지막 비트가 1이라면 1, 0이라면 0)
-            n >>= 1
-        return output
+        return int(format(n, "032b")[::-1], 2)
