@@ -8,17 +8,11 @@ TC: O(1)
 SC: O(1)
 """
 
-# 비트 연산자 풀이
 class Solution:
     def reverseBits(self, n: int) -> int:
-        stack = []
-        while len(stack) < 32:
-            stack.append(n & 1)  # 마지막 비트 1이면 1, 0이면 0
-            n >>= 1  # %= 2 와 같은 효과, 오른쪽 쉬프트
-
-        output, scale = 0, 1  # 결과, 2^0 = 1 시작
-        while stack:
-            output += stack.pop() * scale
-            scale <<= 1  # *= 2 와 같은 효과
-
+        output = 0
+        for _ in range(32):
+            output <<= 1  # 왼쪽 쉬프트
+            output |= (n & 1)  # 논리 연산자 사용 (제일 마지막 비트가 1이라면 1, 0이라면 0)
+            n >>= 1
         return output
