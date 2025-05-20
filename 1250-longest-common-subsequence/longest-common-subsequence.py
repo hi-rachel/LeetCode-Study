@@ -25,10 +25,10 @@ class Solution:
         m, n = len(text1), len(text2)
         dp = [[0] * (n + 1) for _ in range(m + 1)]  # 0번째 인덱스를 비워둬서 문자열이 ""일 때를 기본값으로 처리
 
-        for i in range(m):  # text1의 0 ~ m-1 인덱스
-            for j in range(n):  # text2의 0 ~ n-1 인덱스
-                if text1[i] == text2[j]:
-                    dp[i + 1][j + 1] = dp[i][j] + 1  # 두 문자가 같으면, 이전 상태 + 1
+        for i in range(1, m + 1):  # text1의 1 ~ m 인덱스
+            for j in range(1, n + 1):  # text2의 1 ~ n 인덱스
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1  # 두 문자가 같으면, 이전 상태 + 1
                 else:
-                    dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])  # 다르면, 하나 줄인 상태 중 최댓값 선택
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])  # 다르면, 하나 줄인 상태 중 최댓값 선택
         return dp[m][n]
