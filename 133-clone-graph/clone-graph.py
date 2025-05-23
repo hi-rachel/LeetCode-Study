@@ -13,20 +13,21 @@ class Node:
 """
 
 from typing import Optional
+from collections import deque
+
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
             return
         
-        clones = {}
-
-        def dfs(node):
-            if node in clones:
-                return clones[node]
-            clone = Node(node.val)
-            clones[node] = clone
+        clone = Node(node.val)
+        clones = {node: clone}
+        queue = deque([node])
+        while queue:
+            node = queue.popleft()
             for nei in node.neighbors:
-                clone.neighbors.append(dfs(nei))
-            return clone
-        
-        return dfs(node)
+                if nei not in clones:
+                    clones[nei] = Node(nei.val)
+                    queue.append(nei)
+                clones[node].neighbors.append(clones[nei])
+        return clone
