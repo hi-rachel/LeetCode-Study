@@ -1,9 +1,7 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        goal = len(nums) - 1
-
-        for i in range(len(nums) - 2, -1, -1):
-            if nums[i] + i >= goal:
-                goal = i
-        
-        return True if goal == 0 else False
+        reach = 0
+        for idx in range(len(nums)):
+            if idx <= reach:
+                reach = max(reach, idx + nums[idx])
+        return len(nums) - 1 <= reach
