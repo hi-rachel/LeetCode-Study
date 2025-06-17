@@ -1,17 +1,16 @@
 function isValid(s: string): boolean {
+    const matchChar: { [key: string]: string } = {'(': ')', "{": "}", "[": "]"};
     const stack: string[] = [];
-    const parentheseMap: Record<string, string> = {
-        ")": "(",
-        "]": "[",
-        "}": "{",
-    }
 
     for (const char of s) {
-        if (["(", "[", "{"].includes(char)) {
-            stack.push(char);
+         const test = stack[stack.length - 1];
+         
+        if (matchChar[test] === char) {
+            stack.pop()
         } else {
-            if (stack.pop() !== parentheseMap[char]) return false;
+            stack.push(char)
         }
     }
+       
     return stack.length === 0;
-}
+};
