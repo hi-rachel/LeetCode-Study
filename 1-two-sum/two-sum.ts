@@ -1,20 +1,19 @@
 /**
  * 정수 배열 nums에서 2개의 요소를 더해 target이 되는 index 배열을 반환해라. 
  *
- * TC: O(N**2)
- * SC: O(1)
+ * TC: O(N)
+ * SC: O(N)
  */
 
 function twoSum(nums: number[], target: number): number[] {
-  const answer: number[] = [];
+  const map = new Map<number, number>(); // num -> idx
+
   for (let i = 0; i < nums.length; i++) {
-    let cur = target - nums[i];
-    let restIdx = nums.findIndex((val, idx) => val === cur && idx !== i);
-    if (restIdx !== -1) {
-        answer.push(i)
-        answer.push(restIdx)
-        break
+    const rest = target - nums[i];
+    if (map.has(rest)) {
+        return [map.get(rest), i];
     }
+    map.set(nums[i], i)
   }
-  return answer;
+  return [];
 };
