@@ -1,6 +1,6 @@
 function productExceptSelf(nums: number[]): number[] {
     const n = nums.length;
-    const result: number[] = new Array(n).fill(n);
+    const result: number[] = new Array(n).fill(1);
 
     let leftProduct = 1;
     for (let i = 0; i < n; i++) {
