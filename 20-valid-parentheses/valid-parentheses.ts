@@ -1,26 +1,23 @@
-/**
- * 
- *
- */
-
-
 function isValid(s: string): boolean {
-    const matchChar: { [key: string]: string } = {'(': ')', "{": "}", "[": "]"};
-    const stack: string[] = [];
+    const validMap = {
+        ")": "(",
+        "}": "{",
+        "]": "["
+    }    
+    const openParentheses = ["(", "{", "["]
+    const stack = [];
 
     for (const char of s) {
-        if (stack.length === 0) {
-            stack.push(char);
-            continue;
-        }
-
-        const test = stack[stack.length - 1];
-        if (matchChar[test] === char) {
-            stack.pop()
-        } else {
+        if (openParentheses.includes(char)) {
             stack.push(char)
+        } else {
+            if (stack.at(-1) === validMap[char]) {
+                stack.pop()
+            } else {
+                return false
+            }
         }
     }
-       
-    return stack.length === 0;
+
+    return stack.length === 0
 };
