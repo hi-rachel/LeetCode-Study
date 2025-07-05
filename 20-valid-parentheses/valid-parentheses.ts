@@ -1,21 +1,20 @@
 function isValid(s: string): boolean {
-    const validMap = {
+    const validMap: Record<string, string> = {
         ")": "(",
         "}": "{",
         "]": "["
     }    
-    const openParentheses = ["(", "{", "["]
-    const stack = [];
+    const stack: string[] = [];
 
     for (const char of s) {
-        if (openParentheses.includes(char)) {
-            stack.push(char)
-        } else {
+        if (char in validMap) {
             if (stack.at(-1) === validMap[char]) {
                 stack.pop()
             } else {
                 return false
             }
+        } else {
+            stack.push(char)
         }
     }
 
