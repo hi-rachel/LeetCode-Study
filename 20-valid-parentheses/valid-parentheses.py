@@ -1,14 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        parentheseMap = {")" : "(", "]": "[", "}": "{"}
+        brackets = {
+            "(": ")",
+            "[": "]",
+            "{": "}"
+        }
         stack = []
-        open_parenthese = "([{"
 
-        for char in s:
-            if char in open_parenthese:
-                stack.append(char)
+        for bracket in s:
+            if stack and stack[-1] in brackets and brackets[stack[-1]] == bracket:
+                stack.pop()
             else:
-                if (not stack or stack.pop() != parentheseMap[char]):
-                    return False
+                stack.append(bracket)
             
-        return len(stack) == 0
+        return not stack
