@@ -2,13 +2,12 @@ from collections import defaultdict
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        numdict = defaultdict(int);
-        result = []
+        nums_map = defaultdict(int)
 
         for num in nums:
-            numdict[num] += 1
+            nums_map[num] += 1
 
-        sort_dict = dict(sorted(numdict.items(), key=lambda item: item[1], reverse=True))
+        sort_dict = dict(sorted(nums_map.items(), key=lambda item: item[1], reverse=True))
 
         keys = list(sort_dict)
 
