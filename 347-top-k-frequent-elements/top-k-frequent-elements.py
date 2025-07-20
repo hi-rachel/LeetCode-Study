@@ -1,14 +1,7 @@
-from collections import defaultdict
+from collections import Counter
+import heapq
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        nums_map = defaultdict(int)
-
-        for num in nums:
-            nums_map[num] += 1
-
-        sort_dict = dict(sorted(nums_map.items(), key=lambda item: item[1], reverse=True))
-
-        keys = list(sort_dict)
-
-        return keys[:k]
+        counter = Counter(nums)
+        return heapq.nlargest(k, counter.keys(), key=counter.get)
