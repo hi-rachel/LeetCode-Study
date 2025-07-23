@@ -1,15 +1,21 @@
+"""
+1. set()
+2. 정렬 O(n log n)
+"""
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        longest = 0
-        num_set = set(nums)
-        while num_set:
-            num = num_set.pop()
-            left, right = 1, 1
-            while num - left in num_set:
-                num_set.remove(num - left)
-                left += 1
-            while num + right in num_set:
-                num_set.remove(num + right)
-                right += 1
-            longest = max(left + right - 1, longest)
-        return longest
+        if not nums:
+            return 0
+        nums = sorted(list(set(nums)))
+        max_cnt = 1
+        cnt = 1
+
+        for i in range(len(nums) - 1):
+            if nums[i] + 1 == nums[i + 1]:
+                cnt += 1
+                max_cnt = max(max_cnt, cnt)
+            else:
+                cnt = 1
+
+        return max_cnt
