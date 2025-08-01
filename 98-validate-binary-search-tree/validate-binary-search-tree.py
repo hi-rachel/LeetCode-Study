@@ -1,24 +1,22 @@
-"""
-모든 왼쪽 서브트리는 현재 노드보다 작아야 하고,
-모든 오른쪽 서브트리는 현재 노드보다 커야 한다.
-
-이걸 위해서 범위(min/max)를 재귀로 내려보내야 한다.
-"""
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def validate(node, low, high):
-            if not node:
-                return True
-            if not (low < node.val < high):
-                return False
-            return (validate(node.left, low, node.val) and
-                    validate(node.right, node.val, high))
+        stack = []
+        prev = None  # 이전 중위 순회 값
 
-        return validate(root, float('-inf'), float('inf'))
+        while stack or root:
+            # 왼쪽 끝까지 탐색
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+
+            # 이전 값보다 작거나 같으면 BST 위반
+            if prev is not None and root.val <= prev:
+                return False
+            prev = root.val
+
+            # 오른쪽으로 이동
+            root = root.right
+
+        return True
