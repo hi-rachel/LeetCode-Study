@@ -1,7 +1,31 @@
+"""
+한 번에 1계단 혹은 2계단 오를 수 있음
+1: 1
+2: 2
+3: 1 + 1 + 1, 1 + 2, 2 + 1 => 3
+4: 1 + 1 + 1 + 1, 1 + 1 + 2, 2 + 1 + 1, 1 + 2 + 1, 2 + 2 => 5
+5: 1 + 1 + 1 + 1 + 1,
+   1 + 1 + 1 + 2,
+   1 + 1 + 2 + 1 + 1,
+   1 + 2 + 1 + 1,
+   2 + 1 + 1 + 1,
+   2 + 2 + 1,
+   2 + 1 + 2,
+   1 + 2 + 2,
+   => 8
+
+steps[n] = steps[n - 1] + steps[n - 2]
+"""
+
 class Solution:
-    def climbStairs(self, n: int, memo: dict = {}) -> int:
-        if n not in memo:
-            if n < 3:
-                return n
-            memo[n] = self.climbStairs(n - 1) + self.climbStairs(n - 2)
-        return memo[n]
+    def climbStairs(self, n: int) -> int:
+        if n == 1:
+            return 1
+        elif n == 2:
+            return 2
+        steps = [0] * n
+        steps[0] = 1
+        steps[1] = 2
+        for i in range(2, n):
+            steps[i] = steps[i - 2] + steps[i - 1]
+        return steps[n - 1]
