@@ -12,13 +12,8 @@ class Solution:
                 return False
             
             traversing.add(crs)
-            for pre in graph[crs]:
-                if not can_finish(pre):
-                    return False
+            result = all(can_finish(pre) for pre in graph[crs])
             traversing.remove(crs)
-            return True
+            return result
 
-        for crs in graph:
-            if not can_finish(crs):
-                return False
-        return True
+        return all(can_finish(crs) for crs in graph)
