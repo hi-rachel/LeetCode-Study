@@ -6,5 +6,5 @@ class Solution:
                 output.append(interval)
             else:
                 output[-1][1] = max(output[-1][1], interval[1])
-        
+
         return output
