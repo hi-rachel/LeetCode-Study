@@ -2,13 +2,31 @@
  * @param {integer} init
  * @return { increment: Function, decrement: Function, reset: Function }
  */
-var createCounter = function(init) {
-    let presentCount = init
-    return {
-        increment:()=> ++presentCount,
-        decrement:()=> --presentCount,
-        reset:()=> presentCount = init,
+
+class Counter {
+    constructor(init) {
+        this.init = init;
+        this.presentCount = init;
     }
+
+    increment() {
+        this.presentCount += 1;
+        return this.presentCount;
+    }
+
+    decrement() {
+        this.presentCount -= 1;
+        return this.presentCount;
+    }
+
+    reset() {
+        this.presentCount = this.init;
+        return this.presentCount;
+    }
+}
+
+var createCounter = function(init) {
+    return new Counter(init);
 };
 
 /**
